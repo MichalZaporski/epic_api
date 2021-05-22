@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_193649) do
+ActiveRecord::Schema.define(version: 2021_05_21_174811) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "category_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string "name"
@@ -18,7 +24,23 @@ ActiveRecord::Schema.define(version: 2021_05_20_193649) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.decimal "price"
+    t.decimal "price", precision: 8, scale: 2
+    t.integer "category_id"
+    t.integer "restaurant_id"
+    t.index ["category_id"], name: "index_courses_on_category_id"
+    t.index ["restaurant_id"], name: "index_courses_on_restaurant_id"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "city"
+    t.string "street"
+    t.string "street_number"
+    t.decimal "stars", precision: 1, scale: 2
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -28,4 +50,6 @@ ActiveRecord::Schema.define(version: 2021_05_20_193649) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "courses", "categories"
+  add_foreign_key "courses", "restaurants"
 end

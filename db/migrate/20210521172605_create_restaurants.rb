@@ -6,7 +6,7 @@ class CreateRestaurants < ActiveRecord::Migration[6.1]
       t.string :city
       t.string :street
       t.string :street_number
-      t.int :stars
+      t.decimal :stars, precision: 1, scale: 2
       t.string :phone_number
 
       t.timestamps

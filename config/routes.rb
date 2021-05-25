@@ -12,7 +12,12 @@ Rails.application.routes.draw do
       controller :courses do
         get 'restaurants/:restaurant_id/courses/index' => :index
         get 'restaurants/:restaurant_id/courses/search' => :search
-        get 'restaurant/:restaurant_id/courses/:course_id' => :show
+        get 'restaurants/:restaurant_id/courses/:course_id' => :show
+      end
+
+      controller :restaurants do
+        get 'restaurants' => :index
+        get 'restaurants/search' => :search
       end
 
       get 'categories', to: "categories#index"

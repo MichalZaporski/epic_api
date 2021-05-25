@@ -8,22 +8,32 @@ module Api
       end
 
       def search
-        scope = @restaurant.courses
-        filters = params.permit(:category).to_h.compact
-        scope = scope.where(filters) if filters.any?
-        scope = scope.min_price_scope(params[:price_min]) if params[:price_min]
-        scope = scope.max_price_scope(params[:price_max]) if params[:price_max]
-        render json: scope
+        courses = @restaurant.courses
+        # filters = params.permit(:category).to_h.compact
+        # scope = scope.where(filters) if filters.any?
+        courses = scope_min_price(courses) if params[:price_min]
+        courses = scope_max_price(courses) if params[:price_max]
+        courses = courses.find_by(category_id: params[:category_id]) if params[:category_id] # can return nil if no rsults
+
+        render json: courses
       end
 
       def show
-        render json: @restaurant.courses.where(id: params[:course_id])
+        render json: @restaurant.courses.find(params[:course_id])
       end
 
       private
 
       def set_restaurant
         @restaurant = Restaurant.find(params[:restaurant_id])
+      end
+
+      def scope_min_price(course)
+        course.min_price(params[:price_min])
+      end
+
+      def scope_max_price(course)
+        course.max_price(params[:price_max])
       end
     end
   end

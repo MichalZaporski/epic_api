@@ -4,7 +4,6 @@ module Api
       def index
         render json: Restaurant.all
       end
-      # dodac downcasy do miast !!!!!!!!!!
 
       def search
         restaurants = Restaurant.all

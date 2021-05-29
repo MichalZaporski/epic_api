@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         get 'restaurants/search' => :search
       end
 
+      post 'authentication', to: "authentication#create"
       get 'categories', to: "categories#index"
     end
   end

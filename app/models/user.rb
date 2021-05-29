@@ -1,6 +1,7 @@
 class User < ApplicationRecord
-  has_secure_password
+  class AuthenticationError < StandardError; end
+  validates :email, :name, :surname, presence: true
+  validates :email, uniqueness: true
 
-  validates_presence_of :email
-  validates_uniqueness_of :email
+  has_secure_password
 end

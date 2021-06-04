@@ -5,6 +5,8 @@ class Course < ApplicationRecord
   belongs_to :restaurant
   belongs_to :category, optional: true
 
+  has_many :line_items
+
   scope :min_price, ->(min) { where("price >= ?", min) }
   scope :max_price, ->(max) { where("price <= ?", max) }
   scope :category_filter, ->(category) { where("category_id = ?", category) }

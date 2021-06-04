@@ -2,6 +2,7 @@ module Api
   module V1
     class CoursesController < ApplicationController
       before_action :set_restaurant
+      rescue_from ActiveRecord::RecordNotFound, with: :restaurant_not_found
 
       def index
         render json: @restaurant.courses
@@ -34,6 +35,10 @@ module Api
 
       def scope_max_price(course)
         course.max_price(params[:price_max])
+      end
+
+      def restaurant_not_found(err)
+        render json: { error: err.message }, status: :unprocessable_entity
       end
     end
   end

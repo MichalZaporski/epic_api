@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_29_211842) do
+ActiveRecord::Schema.define(version: 2021_06_04_144104) do
 
   create_table "categories", force: :cascade do |t|
     t.string "category_name"
@@ -29,6 +29,26 @@ ActiveRecord::Schema.define(version: 2021_05_29_211842) do
     t.integer "restaurant_id"
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["restaurant_id"], name: "index_courses_on_restaurant_id"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "course_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_line_items_on_course_id"
+    t.index ["order_id"], name: "index_line_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "date"
+    t.integer "user_id", null: false
+    t.integer "opinion"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -54,4 +74,7 @@ ActiveRecord::Schema.define(version: 2021_05_29_211842) do
 
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "restaurants"
+  add_foreign_key "line_items", "courses"
+  add_foreign_key "line_items", "orders"
+  add_foreign_key "orders", "users"
 end

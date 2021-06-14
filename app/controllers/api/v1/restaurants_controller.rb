@@ -1,6 +1,7 @@
 module Api
   module V1
     class RestaurantsController < ApplicationController
+
       def index
         render json: Restaurant.all
       end
@@ -11,7 +12,16 @@ module Api
         restaurants = name_filter(restaurants) if params[:name]
         restaurants = category_filter(restaurants) if params[:category_id]
 
-        render json: restaurants
+        categories = Restaurant.restaurants_categories(restaurants)
+
+        render json: RestaurantsRepresenter.new(restaurants, categories).add_categories
+      end
+
+      # get restaurants/:restaurant_id/photo
+      def photo
+        restaurant = Restaurant.find(params[:restaurant_id])
+
+        redirect_to rails_blob_url(restaurant.photo) if restaurant&.photo&.attached?
       end
 
       private

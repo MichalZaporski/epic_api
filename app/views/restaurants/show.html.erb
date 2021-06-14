@@ -35,5 +35,10 @@
   <%= @restaurant.phone_number %>
 </p>
 
+<p>
+  <strong>Restaurant photo:</strong>
+  <%= image_tag @restaurant.photo if @restaurant.photo.attached? %>
+</p>
+
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>

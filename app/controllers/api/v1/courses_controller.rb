@@ -16,7 +16,7 @@ module Api
         courses = scope_max_price(courses) if params[:price_max]
         courses = courses.find_by(category_id: params[:category_id]) if params[:category_id] # can return nil if no rsults
 
-        render json: courses
+        render json: CoursesRepresenter.new(courses).as_json
       end
 
       def show

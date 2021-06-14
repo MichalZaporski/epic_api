@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module EpicApi
   class Application < Rails::Application
+    config.web_console.whiny_requests = false
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 

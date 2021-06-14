@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       controller :courses do
-        get 'restaurants/:restaurant_id/courses/index' => :index
+        get 'restaurants/:restaurant_id/courses' => :index
         get 'restaurants/:restaurant_id/courses/search' => :search
         get 'restaurants/:restaurant_id/courses/:course_id' => :show
       end
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       controller :restaurants do
         get 'restaurants' => :index
         get 'restaurants/search' => :search
+        get 'restaurants/:restaurant_id/photo' => :photo
       end
 
       post 'authentication', to: "authentication#create"

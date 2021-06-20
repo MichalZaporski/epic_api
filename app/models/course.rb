@@ -7,7 +7,9 @@ class Course < ApplicationRecord
 
   has_many :line_items
 
+  scope :name_like, ->(name) { where("name like ?", "%#{name}%") }
   scope :min_price, ->(min) { where("price >= ?", min) }
   scope :max_price, ->(max) { where("price <= ?", max) }
-  scope :category_filter, ->(category) { where("category_id = ?", category) }
+  scope :category_filter_id, ->(category_id) { where("category_id = ?", category_id) }
+  scope :category_filter_name, ->(category) { joins(:category).where("categories.category_name = ?", category) }
 end

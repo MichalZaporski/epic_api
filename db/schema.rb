@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_10_124059) do
+ActiveRecord::Schema.define(version: 2021_06_24_193806) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -70,12 +70,17 @@ ActiveRecord::Schema.define(version: 2021_06_10_124059) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "date"
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.integer "opinion"
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "city"
+    t.string "street"
+    t.string "street_number"
+    t.string "phone_number"
+    t.string "note"
+    t.boolean "personal_pickup"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

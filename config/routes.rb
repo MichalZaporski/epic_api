@@ -21,6 +21,8 @@ Rails.application.routes.draw do
         get 'restaurants/:restaurant_id/photo' => :photo
       end
 
+      resources :orders, only: [:create]
+
       post 'authentication', to: "authentication#create"
       get 'categories', to: "categories#index"
     end

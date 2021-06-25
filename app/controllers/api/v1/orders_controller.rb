@@ -17,6 +17,8 @@ module Api
         end
       end
 
+      # dodac opinie, wyswietlanie wszystkich zamowien, zmeinianie statusu
+
       private
 
       def order_params
@@ -28,7 +30,7 @@ module Api
       end
 
       def incorrect_order(err)
-        render json: { error: err.message }, status: unprocessable_entity
+        render json: { error: err.message }, status: :unprocessable_entity
       end
     end
   end

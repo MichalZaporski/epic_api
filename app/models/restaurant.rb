@@ -22,4 +22,34 @@ class Restaurant < ApplicationRecord
 
     categories
   end
+
+  def self.count_opinions(restaurants)
+    opinions = {}
+    opinions_number = {}
+
+    restaurants.each do |restaurant|
+      orders = []
+      sum = 0
+      count = 0
+      restaurant.courses.each do |course|
+        course.line_items.each do |item|
+          next if orders.include? item.order
+
+          orders.append item.order
+          next unless item.order.opinion
+
+          sum += item.order.opinion
+          count += 1
+        end
+      end
+      if count.zero?
+        opinions[restaurant.id] = 0
+      else
+        opinions[restaurant.id] = sum / count.to_f
+      end
+      opinions_number[restaurant.id] = count
+    end
+
+    [opinions, opinions_number]
+  end
 end

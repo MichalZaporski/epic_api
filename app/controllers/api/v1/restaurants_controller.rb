@@ -12,8 +12,9 @@ module Api
         restaurants = category_filter(restaurants) if params[:category_id]
 
         categories = Restaurant.restaurants_categories(restaurants)
+        opinions_arr = Restaurant.count_opinions(restaurants)
 
-        render json: RestaurantsRepresenter.new(restaurants, categories).add_categories
+        render json: RestaurantsRepresenter.new(restaurants, categories, opinions_arr).as_json_extended
       end
 
       # get restaurants/:restaurant_id/photo

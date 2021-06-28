@@ -4,7 +4,7 @@ class RestaurantsRepresenter
   def initialize(restaurants, categories, opinions)
     @restaurants = restaurants
     @categories_hash = categories
-    @opinions_hash= opinions[0]
+    @opinions_hash = opinions[0]
     @opinions_number_hash = opinions[1]
   end
 
@@ -23,7 +23,7 @@ class RestaurantsRepresenter
         city: restaurant.city,
         street: restaurant.street,
         street_number: restaurant.street_number,
-        opinion: @opinions_hash[restaurant.id],
+        opinion: @opinions_hash[restaurant.id].round(2),
         opinions_number: @opinions_number_hash[restaurant.id],
         phone_number: restaurant.phone_number,
         categories: @categories_hash[restaurant.id],

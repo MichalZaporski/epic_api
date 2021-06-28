@@ -2,7 +2,7 @@ module Api
   module V1
     class OrdersController < ApplicationController
       rescue_from ActiveRecord::RecordInvalid, with: :incorrect_order
-      rescue_from ActionController::ParameterMissing, with: :parameter_missing
+      rescue_from ActionController::ParameterMissing, with: :incorrect_order
 
       def create
         new_order = Order.new(order_params)
@@ -32,6 +32,7 @@ module Api
       def incorrect_order(err)
         render json: { error: err.message }, status: :unprocessable_entity
       end
+
     end
   end
 end

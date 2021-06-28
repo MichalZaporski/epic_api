@@ -6,7 +6,9 @@ class Restaurant < ApplicationRecord
 
   scope :city_like, ->(city) { where("city like ?", "%#{city}%") }
   scope :name_like, ->(name) { where("restaurants.name like ?", "%#{name}%") }
-  scope :category_filter, ->(category) { joins(courses: :category).where("categories.id = ?", category).distinct }
+  scope :category_filter, ->(category_id) { joins(courses: :category).where("categories.id = ?", category_id).distinct }
+  scope :category_name_filter, ->(category_name) { joins(courses: :category).where("categories.category_name = ?", category_name).distinct }
+  scope :minimal_opinion, ->(ids) { where id: ids }
 
   def self.restaurants_categories(restaurants)
     categories = {}
@@ -42,6 +44,7 @@ class Restaurant < ApplicationRecord
           count += 1
         end
       end
+
       if count.zero?
         opinions[restaurant.id] = 0
       else

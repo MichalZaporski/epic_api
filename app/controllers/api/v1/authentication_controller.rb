@@ -6,11 +6,12 @@ module Api
 
       def create
         user = User.find_by(email: params.require(:email))
+        raise User::AuthenticationError unless user
         raise User::AuthenticationError unless user.authenticate(params.require(:password))
 
         jwt = AuthenticationTokenService.encode(user.id)
 
-        render json: { token: jwt }, status: :created
+        render json: { token: jwt, name: user.name, id: user.id }, status: :created
       end
 
       private

@@ -22,8 +22,13 @@ Rails.application.routes.draw do
       end
 
       controller :orders do
-        get 'users/:user_id/orders' => :index
+        get 'users/orders' => :index
         post 'orders' => :create
+        put 'orders/:id' => :update
+      end
+
+      controller :users do
+        post 'users' => :create
       end
 
       post 'authentication', to: "authentication#create"
